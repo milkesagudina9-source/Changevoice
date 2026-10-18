@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="Record your voice and transform it with offline voice effects.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Voice Shift — Offline Voice Effects</title>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="top">
+      <div class="brand-mark" aria-hidden="true">◉</div>
+      <div><h1>Voice Shift</h1><p>Record · Transform · Save — offline</p></div>
+      <span class="offline-pill" id="networkStatus">Offline-ready</span>
+    </header>
+
+    <section class="card recorder">
+      <div class="section-heading"><div><p class="eyebrow">STEP 1</p><h2>Your recording</h2></div><span class="mic-icon">🎙️</span></div>
+      <p class="muted">Your audio stays on this device. Microphone access is requested only when you press Record.</p>
+      <div class="record-row">
+        <button id="recordBtn" class="btn primary">● Record</button>
+        <button id="stopBtn" class="btn secondary" disabled>■ Stop</button>
+        <span id="timer" class="timer">00:00</span>
+      </div>
+      <div id="recordStatus" class="status" role="status">Ready to record.</div>
+      <audio id="originalAudio" controls hidden></audio>
+    </section>
+
+    <section class="card">
+      <div class="section-heading"><div><p class="eyebrow">STEP 2</p><h2>Choose a voice</h2></div><span class="wand">✦</span></div>
+      <div class="preset-grid" role="group" aria-label="Voice effect presets">
+        <button class="preset selected" data-preset="normal"><span>🎙️</span><b>Normal</b><small>Original tone</small></button>
+        <button class="preset" data-preset="baby"><span>🧸</span><b>Baby</b><small>High + playful</small></button>
+        <button class="preset" data-preset="female"><span>✨</span><b>Higher</b><small>Bright voice</small></button>
+        <button class="preset" data-preset="male"><span>🪵</span><b>Deeper</b><small>Lower voice</small></button>
+        <button class="preset" data-preset="robot"><span>🤖</span><b>Robot</b><small>Mechanical effect</small></button>
+        <button class="preset" data-preset="alien"><span>👽</span><b>Alien</b><small>Otherworldly</small></button>
+      </div>
+      <div class="controls">
+        <label for="pitch">Pitch <output id="pitchValue">0 semitones</output></label>
+        <input id="pitch" type="range" min="-12" max="12" value="0" step="1">
+        <div class="range-labels"><span>Lower</span><span>Higher</span></div>
+        <label for="speed">Playback speed <output id="speedValue">1.00×</output></label>
+        <input id="speed" type="range" min="0.65" max="1.5" value="1" step="0.05">
+        <div class="range-labels"><span>Slower</span><span>Faster</span></div>
+        <label class="toggle"><input id="robotToggle" type="checkbox"> Add robotic modulation</label>
+      </div>
+      <p class="hint">Note: pitch is changed by adjusting playback rate, so higher/lower settings also change duration and can shift the perceived voice. This app does not clone real people or use online AI.</p>
+    </section>
+
+    <section class="card">
+      <div class="section-heading"><div><p class="eyebrow">STEP 3</p><h2>Preview & export</h2></div><span class="download-icon">↧</span></div>
+      <p class="muted">Choose a preset or adjust the sliders, then render the effect. Export creates a WAV file on your device.</p>
+      <div class="action-row">
+        <button id="previewBtn" class="btn primary" disabled>▶ Preview effect</button>
+        <button id="renderBtn" class="btn secondary" disabled>✨ Render WAV</button>
+      </div>
+      <audio id="previewAudio" controls hidden></audio>
+      <div id="renderStatus" class="status" role="status"></div>
+      <a id="downloadLink" class="download-link" hidden download="voice-shift.wav">⬇ Download processed WAV</a>
+    </section>
+
+    <section class="card install-card" id="installCard">
+      <div><p class="eyebrow">USE LIKE AN APP</p><h2>Install Voice Shift</h2><p class="muted">Install it on your home screen for an app-like experience. After the first successful load, the interface works offline.</p></div>
+      <button id="installBtn" class="btn primary" hidden>Install app</button>
+      <p id="installHelp" class="small">If no install button appears, use your browser menu → “Install app” or “Add to Home screen”.</p>
+    </section>
+    <footer>Made for local, offline voice effects · No uploads · No accounts</footer>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
